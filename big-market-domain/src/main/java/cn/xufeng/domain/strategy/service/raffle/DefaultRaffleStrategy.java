@@ -3,7 +3,7 @@ package cn.xufeng.domain.strategy.service.raffle;
 import cn.xufeng.domain.strategy.model.entity.RaffleFactorEntity;
 import cn.xufeng.domain.strategy.model.entity.RuleActionEntity;
 import cn.xufeng.domain.strategy.model.entity.RuleMatterEntity;
-import cn.xufeng.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import cn.xufeng.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import cn.xufeng.domain.strategy.repository.IStrategyRepository;
 import cn.xufeng.domain.strategy.service.armory.IStrategyDispatch;
 import cn.xufeng.domain.strategy.service.rule.ILogicFilter;
@@ -33,17 +33,23 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy{
         super(repository, strategyDispatch);
     }
 
+
     @Override
     protected RuleActionEntity<RuleActionEntity.RaffleBeforeEntity> doCheckRaffleBeforeLogic(RaffleFactorEntity raffleFactorEntity, String... logics) {
         Map<String, ILogicFilter<RuleActionEntity.RaffleBeforeEntity>> logicFilterGroup = logicFactory.openLogicFilter();
 
+        if(logics == null || 0 == logics.length) return RuleActionEntity.<RuleActionEntity.RaffleBeforeEntity>builder()
+                .code(RuleLogicCheckTypeVO.ALLOW.getCode())
+                .info(RuleLogicCheckTypeVO.ALLOW.getInfo())
+                .build();
+
         // 黑名单规则优先过滤
-        String ruleBackList = Arrays.stream(logics)
+        String ruleBlackList = Arrays.stream(logics)
                 .filter(str -> str.contains(DefaultLogicFactory.LogicModel.RULE_BLACKLIST.getCode()))
                 .findFirst()
                 .orElse(null);
 
-        if (StringUtils.isNotBlank(ruleBackList)) {
+        if (StringUtils.isNotBlank(ruleBlackList)) {
             ILogicFilter<RuleActionEntity.RaffleBeforeEntity> logicFilter = logicFilterGroup.get(DefaultLogicFactory.LogicModel.RULE_BLACKLIST.getCode());
             RuleMatterEntity ruleMatterEntity = new RuleMatterEntity();
             ruleMatterEntity.setUserId(raffleFactorEntity.getUserId());
@@ -77,5 +83,31 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy{
 
         return ruleActionEntity;
 
+    }
+
+    @Override
+    protected RuleActionEntity<RuleActionEntity.RaffleCenterEntity> doCheckRaffleCenterLogic(RaffleFactorEntity raffleFactorEntity, String... logics) {
+        if(logics == null || 0 == logics.length) return RuleActionEntity.<RuleActionEntity.RaffleCenterEntity>builder()
+                .code(RuleLogicCheckTypeVO.ALLOW.getCode())
+                .info(RuleLogicCheckTypeVO.ALLOW.getInfo())
+                .build();
+
+        Map<String, ILogicFilter<RuleActionEntity.RaffleCenterEntity>> logicFilterGroup = logicFactory.openLogicFilter();
+
+        RuleActionEntity<RuleActionEntity.RaffleCenterEntity> ruleActionEntity = null;
+        for (String ruleModel : logics) {
+            ILogicFilter<RuleActionEntity.RaffleCenterEntity> logicFilter = logicFilterGroup.get(ruleModel);
+            RuleMatterEntity ruleMatterEntity = new RuleMatterEntity();
+            ruleMatterEntity.setUserId(raffleFactorEntity.getUserId());
+            ruleMatterEntity.setAwardId(raffleFactorEntity.getAwardId());
+            ruleMatterEntity.setStrategyId(raffleFactorEntity.getStrategyId());
+            ruleMatterEntity.setRuleModel(ruleModel);
+            ruleActionEntity = logicFilter.filter(ruleMatterEntity);
+            // 非放行结果则顺序过滤
+            log.info("抽奖中规则过滤 userId: {} ruleModel: {} code: {} info: {}", raffleFactorEntity.getUserId(), ruleModel, ruleActionEntity.getCode(), ruleActionEntity.getInfo());
+            if (!RuleLogicCheckTypeVO.ALLOW.getCode().equals(ruleActionEntity.getCode())) return ruleActionEntity;
+        }
+
+        return ruleActionEntity;
     }
 }

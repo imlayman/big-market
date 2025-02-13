@@ -2,7 +2,7 @@ package cn.xufeng.domain.strategy.service.rule.impl;
 
 import cn.xufeng.domain.strategy.model.entity.RuleActionEntity;
 import cn.xufeng.domain.strategy.model.entity.RuleMatterEntity;
-import cn.xufeng.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import cn.xufeng.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import cn.xufeng.domain.strategy.repository.IStrategyRepository;
 import cn.xufeng.domain.strategy.service.annotation.LogicStrategy;
 import cn.xufeng.domain.strategy.service.rule.ILogicFilter;
@@ -29,7 +29,6 @@ public class RuleBlackListLogicFilter implements ILogicFilter<RuleActionEntity.R
     public RuleActionEntity<RuleActionEntity.RaffleBeforeEntity> filter(RuleMatterEntity ruleMatterEntity) {
         log.info("规则过滤-黑名单 userId:{} strategyId:{} ruleModel:{}", ruleMatterEntity.getUserId(), ruleMatterEntity.getStrategyId(), ruleMatterEntity.getRuleModel());
         String userId = ruleMatterEntity.getUserId();
-
         String ruleValue = repository.queryStrategyRuleValue(ruleMatterEntity.getStrategyId(),ruleMatterEntity.getAwardId(),ruleMatterEntity.getRuleModel());
         String[] splitRuleValue = ruleValue.split(Constants.COLON);
         Integer awardId = Integer.parseInt(splitRuleValue[0]);

@@ -3,6 +3,7 @@ package cn.xufeng.domain.strategy.repository;
 import cn.xufeng.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyRuleEntity;
+import cn.xufeng.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public interface IStrategyRepository {
 
     List<StrategyAwardEntity> queryStrategyAwardList(Long strategyId);
 
-    void storeStrategyAwardSearchRateTable(String key, BigDecimal rateRange, HashMap<Integer, Integer> shuffleStrategyAwardSearchRateTable);
+    void storeStrategyAwardSearchRateTable(String key, Integer rateRange, HashMap<Integer, Integer> shuffleStrategyAwardSearchRateTable);
 
     Integer getStrategyAwardAssemble(String key, int rateKey);
 
@@ -30,4 +31,6 @@ public interface IStrategyRepository {
     StrategyRuleEntity queryStrategyRule(Long strategyId, String ruleModel);
 
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
+
+    StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);
 }

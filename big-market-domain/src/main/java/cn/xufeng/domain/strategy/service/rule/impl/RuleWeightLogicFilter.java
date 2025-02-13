@@ -2,13 +2,12 @@ package cn.xufeng.domain.strategy.service.rule.impl;
 
 import cn.xufeng.domain.strategy.model.entity.RuleActionEntity;
 import cn.xufeng.domain.strategy.model.entity.RuleMatterEntity;
-import cn.xufeng.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import cn.xufeng.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import cn.xufeng.domain.strategy.repository.IStrategyRepository;
 import cn.xufeng.domain.strategy.service.annotation.LogicStrategy;
 import cn.xufeng.domain.strategy.service.rule.ILogicFilter;
 import cn.xufeng.domain.strategy.service.rule.factory.DefaultLogicFactory;
 import cn.xufeng.types.common.Constants;
-import cn.xufeng.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

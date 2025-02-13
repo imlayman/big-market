@@ -1,6 +1,6 @@
 package cn.xufeng.domain.strategy.model.entity;
 
-import cn.xufeng.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import cn.xufeng.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import lombok.*;
 
 /**

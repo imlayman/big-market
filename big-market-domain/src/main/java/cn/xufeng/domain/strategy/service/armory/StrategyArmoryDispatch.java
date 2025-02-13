@@ -91,7 +91,7 @@ public class StrategyArmoryDispatch implements IStrategyArmory,IStrategyDispatch
         }
 
         // 7.存储到Redis中
-        repository.storeStrategyAwardSearchRateTable(key,rateRange,shuffleStrategyAwardSearchRateTable);
+        repository.storeStrategyAwardSearchRateTable(key,shuffleStrategyAwardSearchRateTable.size(),shuffleStrategyAwardSearchRateTable);
     }
 
     @Override

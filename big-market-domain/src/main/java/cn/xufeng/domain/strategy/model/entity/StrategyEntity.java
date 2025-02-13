@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Xiexufeng @谢旭峰
@@ -25,12 +25,13 @@ public class StrategyEntity {
     private String ruleModels;
 
     public String[] ruleModels(){
-        if(ruleModels.isEmpty()) return null;
+        if(StringUtils.isBlank(ruleModels)) return null;
         return ruleModels.split(Constants.SPLIT);
     }
 
     public String getRuleWeight(){
         String[] ruleModels = this.ruleModels();
+        if(null == ruleModels) return null;
         for(String ruleModel : ruleModels){
             if("rule_weight".equals(ruleModel)) return ruleModel;
         }

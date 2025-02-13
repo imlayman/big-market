@@ -3,6 +3,7 @@ package cn.xufeng.infrastructure.adapter.repository;
 import cn.xufeng.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyRuleEntity;
+import cn.xufeng.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 import cn.xufeng.domain.strategy.repository.IStrategyRepository;
 import cn.xufeng.infrastructure.persistent.dao.IStrategyAwardDao;
 import cn.xufeng.infrastructure.persistent.dao.IStrategyDao;
@@ -62,7 +63,7 @@ public class StrategyRepository implements IStrategyRepository {
     }
 
     @Override
-    public void storeStrategyAwardSearchRateTable(String key, BigDecimal rateRange, HashMap<Integer, Integer> shuffleStrategyAwardSearchRateTable) {
+    public void storeStrategyAwardSearchRateTable(String key, Integer rateRange, HashMap<Integer, Integer> shuffleStrategyAwardSearchRateTable) {
         // 1.存储抽奖策略范围值，如10000，用于生成10000以内的随机数
         redisService.setValue(Constants.Rediskey.STRATEGY_RATE_RANGE_KEY + key,rateRange.intValue());
         // 2.存储概率查找表
@@ -123,5 +124,14 @@ public class StrategyRepository implements IStrategyRepository {
         strategyRule.setAwardId(awardId);
         strategyRule.setRuleModel(ruleModel);
         return strategyRuleDao.queryStrategyRuleValue(strategyRule);
+    }
+
+    @Override
+    public StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId) {
+        StrategyAward strategyAward = new StrategyAward();
+        strategyAward.setStrategyId(strategyId);
+        strategyAward.setAwardId(awardId);
+        String ruleMoldes = strategyAwardDao.queryStrategyAwardRuleModels(strategyAward);
+        return StrategyAwardRuleModelVO.builder().ruleModels(ruleMoldes).build();
     }
 }
