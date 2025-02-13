@@ -1,4 +1,4 @@
-package cn.xufeng.domain.strategy.service.rule.factory;
+package cn.xufeng.domain.strategy.service.rule.filter.factory;
 
 import cn.xufeng.domain.strategy.model.entity.RuleActionEntity;
 import cn.xufeng.domain.strategy.service.annotation.LogicStrategy;

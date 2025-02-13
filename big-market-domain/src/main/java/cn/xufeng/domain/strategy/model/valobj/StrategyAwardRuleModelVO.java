@@ -1,6 +1,6 @@
 package cn.xufeng.domain.strategy.model.valobj;
 
-import cn.xufeng.domain.strategy.service.rule.factory.DefaultLogicFactory;
+import cn.xufeng.domain.strategy.service.rule.filter.factory.DefaultLogicFactory;
 import cn.xufeng.types.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

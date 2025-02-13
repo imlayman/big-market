@@ -7,7 +7,8 @@ import cn.xufeng.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import cn.xufeng.domain.strategy.repository.IStrategyRepository;
 import cn.xufeng.domain.strategy.service.armory.IStrategyDispatch;
 import cn.xufeng.domain.strategy.service.rule.ILogicFilter;
-import cn.xufeng.domain.strategy.service.rule.factory.DefaultLogicFactory;
+import cn.xufeng.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
+import cn.xufeng.domain.strategy.service.rule.filter.factory.DefaultLogicFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy{
     @Resource
     private DefaultLogicFactory logicFactory;
 
-    public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch) {
-        super(repository, strategyDispatch);
+    public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch, DefaultChainFactory defaultChainFactory) {
+        super(repository, strategyDispatch,defaultChainFactory);
     }
 
 
