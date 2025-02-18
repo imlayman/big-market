@@ -1,4 +1,4 @@
-package cn.xufeng.domain.strategy.service;
+package cn.xufeng.domain.strategy.service.rule.chain;
 
 import cn.xufeng.domain.strategy.service.rule.chain.ILogicChain;
 

@@ -1,5 +1,7 @@
 package cn.xufeng.domain.strategy.service.rule.chain;
 
+import cn.xufeng.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
+
 /**
  * @author Xiexufeng @谢旭峰
  * @description 责任链接口
@@ -12,7 +14,7 @@ public interface ILogicChain extends  ILogicChainArmory{
      * @param strategyId 策略ID
      * @return  奖品ID
      */
-    Integer logic(String userId,Long strategyId);
+    DefaultChainFactory.StrategyAwardVO logic(String userId, Long strategyId);
 
 
 }

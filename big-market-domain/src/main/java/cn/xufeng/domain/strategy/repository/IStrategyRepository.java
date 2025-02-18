@@ -3,6 +3,7 @@ package cn.xufeng.domain.strategy.repository;
 import cn.xufeng.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyEntity;
 import cn.xufeng.domain.strategy.model.entity.StrategyRuleEntity;
+import cn.xufeng.domain.strategy.model.valobj.RuleTreeVO;
 import cn.xufeng.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 
 import java.math.BigDecimal;
@@ -34,4 +35,7 @@ public interface IStrategyRepository {
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
 
     StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);
+
+    RuleTreeVO queryRuleTreeVOByTreeId(String treeId);
+
 }
