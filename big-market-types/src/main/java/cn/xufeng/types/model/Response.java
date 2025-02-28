@@ -1,4 +1,4 @@
-package cn.xufeng.api.response;
+package cn.xufeng.types.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,16 +7,20 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * @author Xiexufeng @谢旭峰
+ * @description
+ * @create 2025/2/24 16:05
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Response<T> implements Serializable {
 
-    private static final long serialVersionUID = 7000723935764546321L;
-
     private String code;
     private String info;
     private T data;
 
 }
+
