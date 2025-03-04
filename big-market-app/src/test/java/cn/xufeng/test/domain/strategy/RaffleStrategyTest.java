@@ -1,4 +1,4 @@
-package cn.xufeng.test.domain;
+package cn.xufeng.test.domain.strategy;
 
 import cn.xufeng.domain.strategy.model.entity.RaffleAwardEntity;
 import cn.xufeng.domain.strategy.model.entity.RaffleFactorEntity;

@@ -1,4 +1,4 @@
-package cn.xufeng.test.domain;
+package cn.xufeng.test.domain.strategy;
 
 import cn.xufeng.domain.strategy.model.valobj.*;
 import cn.xufeng.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
