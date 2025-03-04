@@ -1,5 +1,6 @@
 package cn.xufeng.domain.activity.repository;
 
+import cn.xufeng.domain.activity.model.aggregate.CreateOrderAggregate;
 import cn.xufeng.domain.activity.model.entity.ActivityCountEntity;
 import cn.xufeng.domain.activity.model.entity.ActivityEntity;
 import cn.xufeng.domain.activity.model.entity.ActivitySkuEntity;
@@ -17,4 +18,5 @@ public interface IActivityRepository {
 
     ActivityCountEntity queryRaffleActivityCountByActivityCountId(Long activityCountId);
 
+    void doSaveOrder(CreateOrderAggregate createOrderAggregate);
 }
